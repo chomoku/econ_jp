@@ -40,7 +40,7 @@ def kakei_chosa(multi_index: bool = True) -> pd.DataFrame:
         return data
 
 
-def boueki_total_monthly():
+def boueki_total_monthly() -> pd.DataFrame:
     """
     日本の貿易収支の月別推移データ（1979年～: 世界月別; 総額; 単位　千円）
 
