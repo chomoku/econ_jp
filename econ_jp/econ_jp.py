@@ -1,5 +1,12 @@
+import traceback
+
 import pandas as pd
 import numpy as np
+
+"""
+データのカタチ
+- 時系列のデータの場合、日付をインデックスに持ってくる。
+"""
 
 
 def kakei_chosa(multi_index: bool = True) -> pd.DataFrame:
@@ -23,6 +30,8 @@ def kakei_chosa(multi_index: bool = True) -> pd.DataFrame:
     try:
         df = pd.read_csv(kakei_url, encoding="shift-jis")
     except:
+        print(traceback.format_exc())
+        traceback.print_exc()
         print("家計調査のCSVファイルが読み込めません")
     data = df.loc[3:, "1":]
     data = data.astype(float)
@@ -33,10 +42,12 @@ def kakei_chosa(multi_index: bool = True) -> pd.DataFrame:
     data.columns = cols
     if multi_index:
         data.index = pd.MultiIndex.from_frame(index_col)
+        data = data.T
         return data
     else:
         single_index = index_col["品目分類"].values
         data.index = single_index
+        data = data.T
         return data
 
 
@@ -90,31 +101,33 @@ def boj_monetary_base(lang: str = "jp") -> pd.DataFrame:
     data_url = "https://www.boj.or.jp/statistics/boj/other/mb/mblong.xlsx"
     df = pd.read_excel(data_url, sheet_name="平残（Average amounts outstanding）")
     df = df.loc[6:, "Unnamed: 1":]
-    jp_columns = [
-        "日付",
-        "マネタリーベース",
-        "日本銀行券発行高",
-        "貨幣流通高",
-        "日銀当座預金",
-        "日銀当座預金（準備預金）",
-        "マネタリーベース（季節調整済み）",
-    ]
-    en_columns = [
-        "date",
-        "monetary base",
-        "banknotes in circulation",
-        "coins in circuration",
-        "current account balances",
-        "reserve balances",
-        "monetary base(seasonally adjusted)",
-    ]
-    if lang == "jp":
-        df.columns = jp_columns
-        df = df.set_index("日付")
-        df.index = pd.to_datetime(df.index)
-        return df
-    elif lang == "en":
-        df.columns = en_columns
-        df = df.set_index("date")
-        df.index = pd.to_datetime(df.index)
-        return df
+    table_titles = {
+        "en": {
+            "columns": [
+                "date",
+                "monetary base",
+                "banknotes in circulation",
+                "coins in circuration",
+                "current account balances",
+                "reserve balances",
+                "monetary base(seasonally adjusted)",
+            ],
+            "index": "date",
+        },
+        "jp": {
+            "columns": [
+                "日付",
+                "マネタリーベース",
+                "日本銀行券発行高",
+                "貨幣流通高",
+                "日銀当座預金",
+                "日銀当座預金（準備預金）",
+                "マネタリーベース（季節調整済み）",
+            ],
+            "index": "日付",
+        },
+    }
+    df.columns = table_titles[lang]["columns"]
+    df.index = df.set_index(table_titles[lang]["index"])
+    df.index = pd.to_datetime(df.index)
+    return df
