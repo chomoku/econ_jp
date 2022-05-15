@@ -24,7 +24,7 @@ class TestClass:
         top_index = df.columns[0]
         assert top_index == "世帯数分布(抽出率調整)"
 
-    def check_kakei_chosa_date(self):
+    def test_check_kakei_chosa_date(self):
         df = econ_jp.kakei_chosa()
         top_date = df.index[0]
         print(top_date)
