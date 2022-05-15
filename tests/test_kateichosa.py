@@ -1,6 +1,3 @@
-import sys
-
-# sys.path.append("../econ_jp")
 from datetime import datetime
 from econ_jp import econ_jp
 

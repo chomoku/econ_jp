@@ -128,6 +128,6 @@ def boj_monetary_base(lang: str = "jp") -> pd.DataFrame:
         },
     }
     df.columns = table_titles[lang]["columns"]
-    df.index = df.set_index(table_titles[lang]["index"])
+    df = df.set_index(table_titles[lang]["index"])
     df.index = pd.to_datetime(df.index)
     return df
