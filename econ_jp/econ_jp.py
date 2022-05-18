@@ -1,7 +1,9 @@
 import traceback
+from io import BytesIO
 
-import pandas as pd
 import numpy as np
+import pandas as pd
+import requests
 
 """
 データのカタチ
@@ -131,3 +133,47 @@ def boj_monetary_base(lang: str = "jp") -> pd.DataFrame:
     df = df.set_index(table_titles[lang]["index"])
     df.index = pd.to_datetime(df.index)
     return df
+
+
+def jp_covid_daily_data() -> pd.DataFrame:
+    """
+    NHKのコロナウィルス感染者数などのデータを読み込む関数。
+    新型コロナ関連の情報提供:NHK
+    https://www3.nhk.or.jp/news/special/coronavirus/data/rules.html
+    Returns:
+        pd.DataFrame
+        ロングフォームな各都道府県のデータを返す
+
+    """
+    csv_url = "https://www3.nhk.or.jp/n-data/opendata/coronavirus/nhk_news_covid19_prefectures_daily_data.csv"
+    try:
+        r = requests.get(csv_url)
+        df = pd.read_csv(BytesIO(r.content))
+        df["日付"] = pd.to_datetime(df["日付"])
+        return df
+    except:
+        print('データを取得できませんでした。')
+
+def global_covid_daily_data(cumsum: bool = False) -> pd.DataFrame:
+    '''
+    世界のコロナウィルス感染者数のデータ。
+    データソース: Johns Hopkins University https://github.com/CSSEGISandData/COVID-19
+    Params:
+        cumsum: bool
+            累計値を返すかどうか。初期値はFalse
+    
+    Returns:
+        pd.DataFrame
+        インデックスに日付、カラムに国名を持つデータを返す
+    '''
+    df = pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv')
+    df = df.set_index('Country/Region')
+    df = df.loc[:, '1/22/20':]
+    df.columns = pd.to_datetime(df.columns)
+    df = df.T
+    if not cumsum:
+        df = df.diff()
+        return df
+    else:
+        return df
+
