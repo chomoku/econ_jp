@@ -1,10 +1,10 @@
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 setup(
     name="econ_jp",
-    version="0.1.3",
+    version="0.1.4",
     license="MIT",
-    install_requirements=["pandas", "openpyel"],
+    install_requirements=["pandas", "openpyel", "requests"],
     author="HideyukiO",
     author_email="mazarimono@gmail.com",
     url="https://github.com/chomoku/econ_jp",
