@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name="econ_jp",
-    version="0.1.4",
+    version="0.1.5",
     license="MIT",
     install_requirements=["pandas", "openpyel", "requests"],
     author="HideyukiO",
