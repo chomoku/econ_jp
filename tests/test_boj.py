@@ -1,4 +1,5 @@
 import sys
+
 sys.path.append("../econ_jp")
 
 import pandas as pd

@@ -1,11 +1,13 @@
 import traceback
-from io import BytesIO
+import warnings
 from datetime import timedelta
+from io import BytesIO
 
 import numpy as np
 import pandas as pd
 import requests
 
+warnings.simplefilter("ignore")
 """
 データのカタチ
 - 時系列のデータの場合、日付をインデックスに持ってくる。
@@ -102,7 +104,9 @@ def boj_monetary_base(lang: str = "jp") -> pd.DataFrame:
 
     """
     data_url = "https://www.boj.or.jp/statistics/boj/other/mb/mblong.xlsx"
-    df = pd.read_excel(data_url, sheet_name="平残（Average amounts outstanding）")
+    df = pd.read_excel(
+        data_url, sheet_name="平残（Average amounts outstanding）", engine="openpyxl"
+    )
     df = df.loc[6:, "Unnamed: 1":]
     table_titles = {
         "en": {
@@ -199,7 +203,13 @@ def supermarkets_num(tenpo_type: str = "合計") -> pd.DataFrame:
     """
     data_url = "http://www.j-sosm.jp/dl/tenpo2204.xlsx"
     try:
-        df = pd.read_excel(data_url, header=2, index_col="集計日", sheet_name=tenpo_type)
+        df = pd.read_excel(
+            data_url,
+            header=2,
+            index_col="集計日",
+            sheet_name=tenpo_type,
+            engine="openpyxl",
+        )
         df.index = df.index.map(lambda x: x - timedelta(1))
         df.index = pd.to_datetime(df.index)
         df = df.drop(["Unnamed: 0", "Unnamed: 1"], axis=1)
@@ -226,7 +236,9 @@ def supermarkets_sales(data_type: str = "全体", kizon_ten: bool = False) -> pd
 
     try:
         data_url = "http://www.j-sosm.jp/dl/hanbai_month.xlsx"
-        df = pd.read_excel(data_url, header=[2, 3], sheet_name=data_type)
+        df = pd.read_excel(
+            data_url, header=[2, 3], sheet_name=data_type, engine="openpyxl"
+        )
         idx = pd.IndexSlice
         data = df.loc[:, idx[zen_kizon[kizon_ten], :]]
         first_date = str(df.loc[:, idx["実績年月", :]].loc[0].values[0])
@@ -255,7 +267,7 @@ def supermarkets_di(di_type: str = "売上高DI"):
     """
     try:
         data_url = "http://www.j-sosm.jp/dl/keieidoukou.xlsx"
-        df = pd.read_excel(data_url, header=3, sheet_name=di_type)
+        df = pd.read_excel(data_url, header=3, sheet_name=di_type, engine="openpyxl")
         first_date = str(df["実績年月"][0])
         index_date = pd.date_range(
             f"{first_date[:4]}/{first_date[4:]}/1", freq="M", periods=len(df)
