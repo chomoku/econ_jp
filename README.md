@@ -43,6 +43,7 @@ $ pip install econ_jp
   
 ```
 from econ_jp import econ_jp
+
 df = econ_jp.kakei_chosa()
 ```
 
@@ -50,6 +51,7 @@ df = econ_jp.kakei_chosa()
 
 ```
 from econ_jp import econ_jp
+
 df = econ_jp.boeki_total_monthly()
 ```
 
@@ -57,6 +59,7 @@ df = econ_jp.boeki_total_monthly()
 
 ```
 from econ_jp import econ_jp
+
 df = econ_jp.boj_monetary_base()
 ```
 
