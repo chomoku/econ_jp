@@ -19,9 +19,9 @@ def test_dataframe():
         econ_kyoto.kyotoshi_cleaning_ichiran,
         econ_kyoto.kyotoshi_hotels,
         econ_kyoto.kyotoshi_riyosho_ichiran,
-        econ_kyoto.kyotoshi_shokuhin_eigyo_ichiran
+        econ_kyoto.kyotoshi_shokuhin_eigyo_ichiran,
+        econ_kyoto.kyotoshi_hinanjo,
     ]
     for func in funcs:
         df = func()
         assert type(df) == pd.DataFrame
-
