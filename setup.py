@@ -1,10 +1,18 @@
 from setuptools import find_packages, setup
+from pathlib import Path
+
+this_directory = Path(__file__).parent
+
+
+def _requires_from_file(filename):
+    return open(this_directory / filename).read().splitlines()
+
 
 setup(
     name="econ_jp",
-    version="0.1.7",
+    version="0.1.8",
     license="MIT",
-    install_requirements=["pandas", "xlrd", "requests"],
+    install_requirements=_requires_from_file("requirements.txt"),
     author="HideyukiO",
     author_email="mazarimono@gmail.com",
     url="https://github.com/chomoku/econ_jp",

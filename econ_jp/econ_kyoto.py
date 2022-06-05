@@ -152,3 +152,14 @@ def kyotoshi_hotels(data_lang: str = "JP") -> pd.DataFrame:
     data["許可日"] = data["許可日"].map(util._wareki_to_seireki_dot)
     data = data.reset_index(drop=True)
     return data
+
+
+def kyotoshi_hinanjo():
+    """
+    京都市の避難所のエクセルデータを読み込む関数
+    H310401現在
+    WEB URL: https://data.city.kyoto.lg.jp/node/94892#{}
+    """
+    excel_url = "https://data.city.kyoto.lg.jp/file/9898/download?token=bxb0_vYW"
+    df = pd.read_excel(excel_url)
+    return df
