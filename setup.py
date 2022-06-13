@@ -10,9 +10,9 @@ def _requires_from_file(filename):
 
 setup(
     name="econ_jp",
-    version="0.1.9",
+    version="0.1.10",
     license="MIT",
-    install_requirements=_requires_from_file("requirements.txt"),
+    install_requires=_requires_from_file("requirements.txt"),
     author="HideyukiO",
     author_email="mazarimono@gmail.com",
     url="https://github.com/chomoku/econ_jp",
@@ -24,6 +24,3 @@ setup(
         "Programming Language :: Python :: 3.10",
     ],
 )
-
-if __name__ == '__main__':
-    print(_requires_from_file('requirements.txt'))
