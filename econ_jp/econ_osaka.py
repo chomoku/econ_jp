@@ -95,7 +95,7 @@ def osaka_ippankaike_shushi() -> pd.DataFrame:
     https://www.city.osaka.lg.jp/contents/wdu290/opendata/#cat-all_data-00000620
     '''
     target_url = 'https://www.city.osaka.lg.jp/contents/wdu290/opendata/dataset/data-00000620/syushi.csv'
-    df = pd.read_cvs(target_url)
+    df = pd.read_csv(target_url)
     return df
 
 
