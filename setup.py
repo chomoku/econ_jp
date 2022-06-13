@@ -10,7 +10,7 @@ def _requires_from_file(filename):
 
 setup(
     name="econ_jp",
-    version="0.1.8",
+    version="0.1.9",
     license="MIT",
     install_requirements=_requires_from_file("requirements.txt"),
     author="HideyukiO",
@@ -24,3 +24,6 @@ setup(
         "Programming Language :: Python :: 3.10",
     ],
 )
+
+if __name__ == '__main__':
+    print(_requires_from_file('requirements.txt'))
