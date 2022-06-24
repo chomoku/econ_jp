@@ -137,10 +137,10 @@ def kyotoshi_hotels(data_lang: str = "JP") -> pd.DataFrame:
         data_lang: str
         "JP" or "EN"
 
-    旅館業法に基づく許可施設及び施設外玄関帳場一覧（令和４年４月末現在）
+    旅館業法に基づく許可施設及び施設外玄関帳場一覧（令和4年5月末現在）
     web url: https://data.city.kyoto.lg.jp/node/111302
     """
-    excel_url = "https://data.city.kyoto.lg.jp/file/21066/download?token=6G8ORnfe"
+    excel_url = "https://data.city.kyoto.lg.jp/file/21120/download?token=inNjLzKc"
     sheet_list = pd.ExcelFile(excel_url).sheet_names
     if data_lang == "JP":
         sheet_names = [name for num, name in enumerate(sheet_list) if num % 2 == 0]

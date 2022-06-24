@@ -201,7 +201,7 @@ def supermarkets_num(tenpo_type: str = "合計") -> pd.DataFrame:
     Returns:
         pd.DataFrame
     """
-    data_url = "http://www.j-sosm.jp/dl/tenpo2204.xlsx"
+    data_url = "http://www.j-sosm.jp/dl/tenpo2205.xlsx"
     try:
         df = pd.read_excel(
             data_url,
