@@ -21,3 +21,24 @@ def _wareki_to_seireki_dot(x: str) -> datetime:
         return datetime(year_int, int(date[1]), int(date[2])).date()
     except:
         pass
+
+
+def _wareki_split(x, add_num):
+    x = x[2:]
+    split_one = x.split('年')
+    year_int = int(split_one[0]) + add_num
+    split_two = split_one[1].split('月')
+    month_int = int(split_two[0])
+    day_int = int(split_two[1].replace('日', ''))
+    return datetime(year_int, month_int, day_int)
+
+def _wareki_to_seireki(x) -> datetime:
+    try:
+        if x[:2] == '令和':
+            return _wareki_split(x, 2018)
+        elif x[:2] == '平成':
+            return _wareki_split(x, 1988)
+        elif x[:2] == '昭和':
+            return _wareki_split(x, 1925)
+    except:
+        pass

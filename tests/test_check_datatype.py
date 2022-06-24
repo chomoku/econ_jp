@@ -1,6 +1,6 @@
 import pandas as pd
 
-from econ_jp import econ_jp, econ_kyoto, econ_osaka
+from econ_jp import econ_jp, econ_kyoto, econ_osaka, econ_kobe
 
 
 def test_dataframe():
@@ -30,7 +30,17 @@ def test_dataframe():
         econ_osaka.osaka_hinanjo,
         econ_osaka.osaka_ippankaike_shushi,
         econ_osaka.osaka_kodomo_hondana,
-        econ_osaka.osaka_shuseiritsu
+        econ_osaka.osaka_shuseiritsu,
+        econ_kobe.kobe_zeishu,
+        econ_kobe.kobe_key_data,
+        econ_kobe.kobe_sannomiya_zinryu,
+        econ_kobe.kobe_harbor_shipnum,
+        econ_kobe.kobe_harbor_cargo_volume_by_country_and_product,
+        econ_kobe.kobe_harbor_containers_num_by_country,
+        econ_kobe.kobe_traffic_accident,
+        econ_kobe.kobe_restaurant,
+        econ_kobe.kobe_riyo,
+        econ_kobe.kobe_biyo
     ]
     for func in funcs:
         df = func()
