@@ -110,3 +110,15 @@ def kobe_biyo() -> pd.DataFrame:
     df['確認日_dt'] = df['確認日'].map(util._wareki_to_seireki)
     return df
 
+
+def kobe_subway_passanger() -> pd.DataFrame():
+    '''
+    市営地下鉄の乗客数
+    https://data.city.kobe.lg.jp/data/dataset/33478-5-2-0-2-0dad50e574a02b2cb29d051072c3cb39-daf5ca9891d135e0-10fa08a05d8b0ce4/resource/13cd7ee8-e2af-4ea3-b377-234653af258a
+    
+    '''
+    data_url = 'https://www.city.kobe.lg.jp/documents/33478/subwaydata.csv'
+    df = pd.read_csv(data_url, encoding='cp932', parse_dates=['日付'])
+    df = df.drop(['Unnamed: 7', 'Unnamed: 8', 'Unnamed: 9'], axis=1)
+    df = df.dropna(how='all')
+    return df

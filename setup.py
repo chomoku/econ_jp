@@ -10,7 +10,7 @@ def _requires_from_file(filename):
 
 setup(
     name="econ_jp",
-    version="0.1.11",
+    version="0.1.13",
     license="MIT",
     install_requires=_requires_from_file("requirements.txt"),
     author="HideyukiO",

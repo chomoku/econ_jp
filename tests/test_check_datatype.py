@@ -40,7 +40,8 @@ def test_dataframe():
         econ_kobe.kobe_traffic_accident,
         econ_kobe.kobe_restaurant,
         econ_kobe.kobe_riyo,
-        econ_kobe.kobe_biyo
+        econ_kobe.kobe_biyo,
+        econ_kobe.kobe_subway_passanger,
     ]
     for func in funcs:
         df = func()
